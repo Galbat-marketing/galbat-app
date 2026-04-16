@@ -1,0 +1,74 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #f5f0e8;
+  color: #161518;
+  overflow-x: hidden;
+}
+
+:root {
+  --cream: #f5f0e8;
+  --gold: #e6c98c;
+  --violet: #7b5ea7;
+  --dark: #161518;
+  --white: #ffffff;
+}
+
+// Common styles
+section {
+  padding: 110px 60px;
+}
+
+.section-tag {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(30px, 4vw, 46px);
+  color: var(--dark);
+  font-weight: 600;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.section-line {
+  width: 50px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 40px;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .8s ease, transform .8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media(max-width:768px) {
+  section {
+    padding: 80px 24px;
+  }
+}

@@ -1,0 +1,37 @@
+/* IDENTITY QUOTE */
+.identity {
+  background: #7b5ea7;
+  padding: 100px 60px;
+  text-align: center;
+}
+
+.identity-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+blockquote {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(20px, 3vw, 30px);
+  color: #ffffff;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 1px;
+}
+
+cite {
+  display: block;
+  margin-top: 32px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: normal;
+}
+
+@media (max-width: 768px) {
+  .identity {
+    padding: 80px 24px;
+  }
+}

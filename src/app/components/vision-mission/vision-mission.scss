@@ -1,0 +1,90 @@
+/* VISION MISSION */
+.vm {
+  background: #161518;
+}
+
+.vm-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.vm-header {
+  text-align: center;
+  margin-bottom: 80px;
+
+  .section-title {
+    color: #ffffff;
+  }
+
+  .section-line {
+    margin: 0 auto;
+  }
+}
+
+.vm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.vm-card {
+  padding: 64px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(230, 201, 140, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e6c98c;
+  }
+
+  &:hover {
+    background: rgba(123, 94, 167, 0.08);
+  }
+}
+
+.vm-card-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #e6c98c;
+  margin-bottom: 20px;
+}
+
+.vm-card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 28px;
+}
+
+.vm-card p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .vm-header {
+    padding: 80px 24px;
+  }
+
+  .vm-grid {
+    grid-template-columns: 1fr;
+    padding: 0 24px 80px 24px;
+  }
+
+  .vm-card {
+    padding: 40px 28px;
+  }
+}
