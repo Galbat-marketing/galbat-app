@@ -1,0 +1,86 @@
+<section class="blog-detail-section">
+  <div class="blog-detail-container">
+    <!-- Back Button -->
+    <button (click)="goBack()" class="btn-back">
+      ← Volver al Blog
+    </button>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading">
+      <p>Cargando post...</p>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+
+    <!-- Post Content -->
+    <article *ngIf="post && !loading" class="post-detail">
+      <!-- Featured Image -->
+      <div *ngIf="post.featured_image" class="post-hero-image">
+        <img
+          [src]="post.featured_image"
+          [alt]="post.title"
+          [title]="post.title"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Post Header -->
+      <header class="post-header">
+        <h1 class="post-title">{{ post.title }}</h1>
+
+        <div class="post-meta">
+          <span class="meta-item">
+            <span class="meta-label">Por:</span>
+            <span class="meta-value">{{ post.author }}</span>
+          </span>
+          <span class="meta-item">
+            <span class="meta-label">Publicado:</span>
+            <span class="meta-value">{{ formatDate(post.created_at) }}</span>
+          </span>
+        </div>
+      </header>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        <p class="post-excerpt-highlight">{{ post.excerpt || 'Sin descripción' }}</p>
+        <div class="post-content-text">
+          {{ post.content }}
+        </div>
+      </div>
+
+      <!-- Post Footer -->
+      <footer class="post-footer">
+        <div class="post-tags">
+          <span class="tag">Blog</span>
+          <span class="tag">{{ post.author }}</span>
+        </div>
+      </footer>
+    </article>
+
+    <!-- Related Posts -->
+    <section *ngIf="relatedPosts.length > 0 && !loading" class="related-posts">
+      <h2>Posts Relacionados</h2>
+      <div class="related-grid">
+        <article
+          *ngFor="let relatedPost of relatedPosts"
+          class="related-card"
+          (click)="goToPost(relatedPost.id)"
+        >
+          <div *ngIf="relatedPost.featured_image" class="related-image">
+            <img
+              [src]="relatedPost.featured_image"
+              [alt]="relatedPost.title"
+              loading="lazy"
+            />
+          </div>
+          <div class="related-content">
+            <h3>{{ relatedPost.title }}</h3>
+            <p class="related-excerpt">{{ relatedPost.excerpt }}</p>
+            <span class="read-more">Leer más →</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</section>

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { ContactService } from '../../services/contact.service';
 
 @Component({
   selector: 'app-contact',
@@ -10,6 +10,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './contact.scss',
 })
 export class ContactComponent {
+  private contactService = inject(ContactService);
+
   formData = {
     name: '',
     email: '',
@@ -20,39 +22,40 @@ export class ContactComponent {
   submitStatus: 'idle' | 'sending' | 'success' | 'error' = 'idle';
   statusMessage = '';
 
-  constructor(private http: HttpClient) {}
-
   onSubmit() {
-    // const fields = this.formData;
-    // if (!fields.name || !fields.email || !fields.message) {
-    //   this.submitStatus = 'error';
-    //   this.statusMessage = 'Por favor completa todos los campos requeridos';
-    //   return;
-    // }
+    const fields = this.formData;
+    if (!fields.name || !fields.email || !fields.message) {
+      this.submitStatus = 'error';
+      this.statusMessage = 'Por favor completa todos los campos requeridos';
+      setTimeout(() => {
+        this.submitStatus = 'idle';
+        this.statusMessage = '';
+      }, 3000);
+      return;
+    }
 
-    // this.submitStatus = 'sending';
-    // this.statusMessage = 'Enviando mensaje...';
+    this.submitStatus = 'sending';
+    this.statusMessage = 'Enviando mensaje...';
 
-    // this.http.post('http://localhost:3000/api/contact', this.formData)
-    //   .subscribe({
-    //     next: () => {
-    //       this.submitStatus = 'success';
-    //       this.statusMessage = 'Mensaje enviado correctamente';
-    //       this.formData = { name: '', email: '', company: '', message: '' };
-    //       setTimeout(() => {
-    //         this.submitStatus = 'idle';
-    //         this.statusMessage = '';
-    //       }, 3000);
-    //     },
-    //     error: () => {
-    //       this.submitStatus = 'error';
-    //       this.statusMessage = 'Error al enviar el mensaje. Intenta de nuevo.';
-    //       setTimeout(() => {
-    //         this.submitStatus = 'idle';
-    //         this.statusMessage = '';
-    //       }, 3000);
-    //     }
-    //   });
-    alert('Funcionalidad de contacto deshabilitada temporalmente, escribir al correo mostrado en la pagina');
+    this.contactService.sendContact(this.formData).subscribe({
+      next: () => {
+        this.submitStatus = 'success';
+        this.statusMessage = '¡Mensaje enviado correctamente! Nos pondremos en contacto pronto.';
+        this.formData = { name: '', email: '', company: '', message: '' };
+        setTimeout(() => {
+          this.submitStatus = 'idle';
+          this.statusMessage = '';
+        }, 4000);
+      },
+      error: (error) => {
+        console.error('Error:', error);
+        this.submitStatus = 'error';
+        this.statusMessage = 'Error al enviar el mensaje. Intenta de nuevo.';
+        setTimeout(() => {
+          this.submitStatus = 'idle';
+          this.statusMessage = '';
+        }, 3000);
+      }
+    });
   }
 }

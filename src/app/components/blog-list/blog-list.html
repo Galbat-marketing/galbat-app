@@ -1,0 +1,56 @@
+<section class="blog-section">
+  <div class="blog-container">
+    <div class="section-header">
+      <h1 class="section-title">Nuestro Blog</h1>
+      <p class="section-subtitle">Descubre artículos, consejos y novedades sobre nuestros servicios</p>
+    </div>
+
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Cargando posts...</p>
+    </div>
+
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+
+    <div *ngIf="!loading && posts.length > 0" class="posts-grid">
+      <article *ngFor="let post of posts" class="post-card" (click)="goToPost(post.id)">
+        <div class="post-card-inner">
+          <div *ngIf="post.featured_image" class="post-image">
+            <img
+              [src]="post.featured_image"
+              [alt]="post.title"
+              [title]="post.title"
+              loading="lazy"
+            />
+            <div class="image-overlay"></div>
+          </div>
+
+          <div class="post-content">
+            <h2 class="post-title">{{ post.title }}</h2>
+
+            <div class="post-meta">
+              <span class="post-author">
+                <span class="meta-icon">✍️</span>
+                {{ post.author }}
+              </span>
+              <span class="post-date">
+                <span class="meta-icon">📅</span>
+                {{ formatDate(post.created_at) }}
+              </span>
+            </div>
+
+            <p class="post-excerpt">{{ getExcerpt(post.content) }}</p>
+
+            <button (click)="goToPost(post.id)" class="btn-read-more">
+              Leer más <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div *ngIf="!loading && posts.length === 0" class="no-posts">
+      <p>No hay posts disponibles aún.</p>
+    </div>
+  </div>
+</section>

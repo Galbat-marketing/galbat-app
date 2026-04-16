@@ -1,0 +1,210 @@
+<div class="admin-container">
+  <footer class="admin-header">
+    <h1>Panel de Administración</h1>
+    <button (click)="logout()" class="btn-logout">Cerrar Sesión</button>
+  </footer>
+
+  <div class="admin-content">
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <button
+        (click)="switchTab('posts')"
+        class="tab-btn"
+        [class.active]="activeTab === 'posts'"
+      >
+        📝 Blog
+      </button>
+      <button
+        (click)="switchTab('contacts')"
+        class="tab-btn"
+        [class.active]="activeTab === 'contacts'"
+      >
+        💬 Mensajes <span *ngIf="getUnreadCount() > 0" class="badge">{{ getUnreadCount() }}</span>
+      </button>
+    </div>
+
+    <div *ngIf="success" class="success-message">{{ success }}</div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+
+    <!-- POSTS TAB -->
+    <div *ngIf="activeTab === 'posts'">
+      <div class="content-header">
+        <h2>Gestionar Posts</h2>
+        <button (click)="toggleForm()" class="btn-new">
+          {{ showForm ? 'Cancelar' : '+ Nuevo Post' }}
+        </button>
+      </div>
+
+      <!-- Formulario -->
+      <div *ngIf="showForm" class="form-section">
+        <h3>{{ editingId ? 'Editar Post' : 'Crear Nuevo Post' }}</h3>
+
+        <form (ngSubmit)="savePost()" class="post-form">
+          <div class="form-group">
+            <label for="title">Título *</label>
+            <input
+              type="text"
+              id="title"
+              [(ngModel)]="form.title"
+              name="title"
+              placeholder="Título del post"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="author">Autor *</label>
+            <input
+              type="text"
+              id="author"
+              [(ngModel)]="form.author"
+              name="author"
+              placeholder="Tu nombre"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="excerpt">Extracto</label>
+            <textarea
+              id="excerpt"
+              [(ngModel)]="form.excerpt"
+              name="excerpt"
+              placeholder="Resumen del post (opcional)"
+              rows="2"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="featured_image">Imagen destacada (URL)</label>
+            <input
+              type="url"
+              id="featured_image"
+              [(ngModel)]="form.featured_image"
+              name="featured_image"
+              placeholder="https://..."
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="content">Contenido *</label>
+            <textarea
+              id="content"
+              [(ngModel)]="form.content"
+              name="content"
+              placeholder="Contenido del post"
+              rows="10"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn-save">
+            {{ editingId ? 'Actualizar' : 'Publicar' }} Post
+          </button>
+        </form>
+      </div>
+
+      <!-- Lista de posts -->
+      <div class="posts-section">
+        <div *ngIf="loading" class="loading">
+          <p>Cargando posts...</p>
+        </div>
+
+        <div *ngIf="!loading && posts.length > 0" class="posts-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let post of posts">
+                <td class="title-cell">{{ post.title }}</td>
+                <td>{{ post.author }}</td>
+                <td>{{ formatDate(post.created_at) }}</td>
+                <td class="actions-cell">
+                  <button (click)="editPost(post)" class="btn-edit">Editar</button>
+                  <button (click)="deletePost(post.id)" class="btn-delete">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div *ngIf="!loading && posts.length === 0" class="no-posts">
+          <p>No hay posts aún. ¡Crea el primero!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACTS TAB -->
+    <div *ngIf="activeTab === 'contacts'">
+      <div class="content-header">
+        <h2>Mensajes de Contacto</h2>
+      </div>
+
+      <div class="contacts-container">
+        <div class="contacts-list">
+          <div *ngIf="contactsLoading" class="loading">
+            <p>Cargando mensajes...</p>
+          </div>
+
+          <div *ngIf="!contactsLoading && contacts.length > 0">
+            <div
+              *ngFor="let contact of contacts"
+              class="contact-item"
+              [class.unread]="contact.status === 'new'"
+              (click)="viewContact(contact)"
+            >
+              <div class="contact-header">
+                <strong>{{ contact.name }}</strong>
+                <span *ngIf="contact.status === 'new'" class="new-badge">Nuevo</span>
+              </div>
+              <p class="contact-email">{{ contact.email }}</p>
+              <p class="contact-preview">{{ contact.message.substring(0, 60) }}...</p>
+              <small class="contact-date">{{ formatDate(contact.created_at) }}</small>
+            </div>
+          </div>
+
+          <div *ngIf="!contactsLoading && contacts.length === 0" class="no-posts">
+            <p>No hay mensajes de contacto aún.</p>
+          </div>
+        </div>
+
+        <!-- Contact Detail -->
+        <div *ngIf="selectedContact" class="contact-detail">
+          <button (click)="closeContactDetail()" class="btn-close">✕</button>
+
+          <div class="detail-header">
+            <h3>{{ selectedContact.name }}</h3>
+            <span *ngIf="selectedContact.status === 'new'" class="new-badge">Nuevo</span>
+          </div>
+
+          <div class="detail-info">
+            <p><strong>Email:</strong> <a [href]="'mailto:' + selectedContact.email">{{ selectedContact.email }}</a></p>
+            <p *ngIf="selectedContact.company"><strong>Empresa:</strong> {{ selectedContact.company }}</p>
+            <p><strong>Fecha:</strong> {{ formatDate(selectedContact.created_at) }}</p>
+          </div>
+
+          <div class="detail-message">
+            <h4>Mensaje:</h4>
+            <p>{{ selectedContact.message }}</p>
+          </div>
+
+          <div class="detail-actions">
+            <a [href]="'mailto:' + selectedContact.email" class="btn-reply">Responder por Email</a>
+            <button (click)="deleteContact(selectedContact.id)" class="btn-delete">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

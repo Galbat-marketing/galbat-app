@@ -42,9 +42,25 @@ nav {
   color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
   transition: color 0.3s;
+  padding: 8px 12px;
+  border-radius: 4px;
 
   &:hover {
     color: #e6c98c;
+  }
+
+  &.btn-login {
+    background: linear-gradient(135deg, #7b5ea7 0%, #9370db 100%);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    &:hover {
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(123, 94, 167, 0.4);
+    }
   }
 }
 
