@@ -28,17 +28,14 @@
       </div>
 
       <button type="submit" [disabled]="loading" class="btn-login">
-        {{ loading ? 'Cargando...' : (isSignup ? 'Crear Cuenta' : 'Iniciar Sesión') }}
+        {{ loading ? 'Cargando...' : 'Iniciar Sesión' }}
       </button>
     </form>
 
     <div *ngIf="error" class="error-message">{{ error }}</div>
 
-    <p class="toggle-mode">
-      {{ isSignup ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?' }}
-      <button type="button" (click)="toggleSignup()" class="link-btn">
-        {{ isSignup ? 'Inicia sesión' : 'Crea una' }}
-      </button>
-    </p>
+
+
+
   </div>
 </div>
