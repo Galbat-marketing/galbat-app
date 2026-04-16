@@ -1,44 +1,41 @@
 .admin-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f0e8 0%, #faf8f4 100%);
+  background: linear-gradient(135deg, #f5f0e8, #faf8f4);
 }
 
 .admin-header {
-  background: linear-gradient(135deg, #7b5ea7 0%, #5a3d7c 100%);
-  color: white;
+  background: linear-gradient(135deg, #7b5ea7, #5a3d7c);
+  color: #fff;
   padding: 40px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 10px 30px rgba(123, 94, 167, 0.3);
-  bottom: 0;
+  box-shadow: 0 10px 30px rgba(123,94,167,.3);
   position: fixed;
+  bottom: 0;
   width: 100%;
-
   h1 {
-    font-family: 'Cinzel', serif;
+    font-family: Cinzel, serif;
     font-size: 32px;
     margin: 0;
     letter-spacing: -0.5px;
   }
-
   .btn-logout {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    border: 2px solid rgba(255,255,255,.4);
     padding: 12px 24px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     font-size: 14px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
+    transition: all .3s;
     &:hover {
-      background: white;
+      background: #fff;
       color: #7b5ea7;
-      border-color: white;
+      border-color: #fff;
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,.2);
     }
   }
 }
@@ -54,9 +51,8 @@
   gap: 10px;
   margin-bottom: 30px;
   border-bottom: 2px solid #e6c98c;
-
   .tab-btn {
-    background: transparent;
+    background: 0;
     border: none;
     color: #7b5ea7;
     padding: 15px 25px;
@@ -64,11 +60,9 @@
     font-weight: 600;
     cursor: pointer;
     position: relative;
-    transition: color 0.3s;
-
+    transition: color .3s;
     &.active {
       color: #e6c98c;
-
       &::after {
         content: '';
         position: absolute;
@@ -79,11 +73,10 @@
         background: #e6c98c;
       }
     }
-
     .badge {
       display: inline-block;
       background: #d9534f;
-      color: white;
+      color: #fff;
       border-radius: 50%;
       width: 24px;
       height: 24px;
@@ -99,42 +92,31 @@
   display: grid;
   grid-template-columns: 350px 1fr;
   gap: 20px;
-  background: white;
+  background: #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 5px 20px rgba(123, 94, 167, 0.1);
+  box-shadow: 0 5px 20px rgba(123,94,167,.1);
   min-height: 500px;
-
   .contacts-list {
     border-right: 1px solid #e6c98c;
     overflow-y: auto;
     max-height: 600px;
-
     .contact-item {
       padding: 15px;
       border-bottom: 1px solid #f0f0f0;
       cursor: pointer;
-      transition: background 0.2s;
-
-      &:hover {
-        background: #f9f7f3;
-      }
-
+      transition: background .2s;
+      &:hover { background: #f9f7f3; }
       &.unread {
         background: #f5f0e8;
         border-left: 3px solid #e6c98c;
       }
-
       .contact-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 8px;
-
-        strong {
-          color: #7b5ea7;
-        }
-
+        strong { color: #7b5ea7; }
         .new-badge {
           background: #e6c98c;
           color: #7b5ea7;
@@ -144,58 +126,39 @@
           font-weight: 600;
         }
       }
-
-      .contact-email {
-        font-size: 13px;
+      .contact-email, .contact-preview, .contact-date { 
+        font-size: 12px;
         color: #999;
         margin: 5px 0;
       }
-
-      .contact-preview {
-        font-size: 12px;
-        color: #666;
-        margin: 5px 0;
-      }
-
-      .contact-date {
-        color: #ccc;
-        font-size: 11px;
-      }
+      .contact-date { font-size: 11px; }
     }
   }
-
   .contact-detail {
     padding: 30px;
     position: relative;
-
     .btn-close {
       position: absolute;
       top: 15px;
       right: 15px;
-      background: none;
+      background: 0;
       border: none;
       font-size: 24px;
       color: #999;
       cursor: pointer;
-      transition: color 0.3s;
-
-      &:hover {
-        color: #7b5ea7;
-      }
+      transition: color .3s;
+      &:hover { color: #7b5ea7; }
     }
-
     .detail-header {
       display: flex;
       align-items: center;
       gap: 15px;
       margin-bottom: 25px;
-
       h3 {
         color: #7b5ea7;
-        font-family: 'Cinzel', serif;
+        font-family: Cinzel, serif;
         margin: 0;
       }
-
       .new-badge {
         background: #e6c98c;
         color: #7b5ea7;
@@ -205,95 +168,64 @@
         font-weight: 600;
       }
     }
-
     .detail-info {
       background: #f9f7f3;
       padding: 20px;
       border-radius: 8px;
       margin-bottom: 25px;
-
       p {
         margin: 10px 0;
         color: #666;
-
         a {
           color: #7b5ea7;
           text-decoration: none;
-
-          &:hover {
-            text-decoration: underline;
-          }
+          &:hover { text-decoration: underline; }
         }
       }
-
-      strong {
-        color: #7b5ea7;
-      }
+      strong { color: #7b5ea7; }
     }
-
     .detail-message {
       margin-bottom: 25px;
-
       h4 {
         color: #7b5ea7;
-        font-family: 'Cinzel', serif;
+        font-family: Cinzel, serif;
         margin-bottom: 15px;
       }
-
       p {
         color: #666;
         line-height: 1.6;
       }
     }
-
     .detail-actions {
       display: flex;
       gap: 15px;
-
+      .btn-reply, .btn-delete {
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all .3s;
+      }
       .btn-reply {
         flex: 1;
-        padding: 12px;
-        background: linear-gradient(135deg, #7b5ea7 0%, #9370db 100%);
-        color: white;
-        text-decoration: none;
-        border: none;
-        border-radius: 6px;
+        background: linear-gradient(135deg, #7b5ea7, #9370db);
+        color: #fff;
         text-align: center;
-        cursor: pointer;
-        font-weight: 600;
-        transition: transform 0.3s, box-shadow 0.3s;
-
         &:hover {
           transform: translateY(-2px);
-          box-shadow: 0 5px 20px rgba(123, 94, 167, 0.4);
+          box-shadow: 0 5px 20px rgba(123,94,167,.4);
         }
       }
-
       .btn-delete {
-        padding: 12px 25px;
         background: #f8d7da;
         color: #d9534f;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: background 0.3s;
-
-        &:hover {
-          background: #f5c6cc;
-        }
+        &:hover { background: #f5c6cc; }
       }
     }
   }
-
-  .no-posts {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 40px;
-  }
-
-  .loading {
-    grid-column: 1 / -1;
+  .no-posts, .loading {
+    grid-column: 1/-1;
     text-align: center;
     padding: 40px;
   }
