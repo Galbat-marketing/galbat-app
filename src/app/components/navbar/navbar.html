@@ -10,13 +10,20 @@
     </svg>
     <span class="nav-logo-text">GALBAT</span>
   </div>
-  <ul class="nav-links">
-    <li><a href="#nosotros">Nosotros</a></li>
-    <li><a href="#vision">Visión</a></li>
-    <li><a href="#valores">Valores</a></li>
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#contactos">Contacto</a></li>
-    <li><a href="/blog">Blog</a></li>
-    <li><a href="/admin/login" class="btn-login">Admin</a></li>
+
+  <button class="hamburger" (click)="toggleMenu()" [class.active]="isMenuOpen" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <ul class="nav-links" [class.active]="isMenuOpen">
+    <li><a href="#nosotros" (click)="closeMenu()">Nosotros</a></li>
+    <li><a href="#vision" (click)="closeMenu()">Visión</a></li>
+    <li><a href="#valores" (click)="closeMenu()">Valores</a></li>
+    <li><a href="#servicios" (click)="closeMenu()">Servicios</a></li>
+    <li><a href="#contactos" (click)="closeMenu()">Contacto</a></li>
+    <li><a href="/blog" (click)="closeMenu()">Blog</a></li>
+    <li><a href="/admin/login" class="btn-login" (click)="closeMenu()">Admin</a></li>
   </ul>
 </nav>

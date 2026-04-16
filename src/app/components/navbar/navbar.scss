@@ -69,12 +69,77 @@ nav {
   height: 42px;
 }
 
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 101;
+
+  span {
+    width: 24px;
+    height: 2px;
+    background: #e6c98c;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  &.active {
+    span:nth-child(1) {
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+  }
+}
+
 @media (max-width: 768px) {
   nav {
     padding: 16px 24px;
   }
 
+  .hamburger {
+    display: flex;
+  }
+
   .nav-links {
-    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: rgba(22, 21, 24, 0.98);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(230, 201, 140, 0.15);
+    flex-direction: column;
+    gap: 0;
+    list-style: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+
+    &.active {
+      max-height: 500px;
+    }
+
+    li {
+      border-bottom: 1px solid rgba(230, 201, 140, 0.1);
+    }
+
+    a {
+      display: block;
+      padding: 16px 24px;
+      font-size: 13px;
+
+      &.btn-login {
+        margin: 12px 24px;
+        text-align: center;
+      }
+    }
   }
 }
