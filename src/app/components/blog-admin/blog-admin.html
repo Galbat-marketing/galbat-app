@@ -8,6 +8,7 @@
     <!-- Tabs -->
     <div class="admin-tabs">
       <button
+        type="button"
         (click)="switchTab('posts')"
         class="tab-btn"
         [class.active]="activeTab === 'posts'"
@@ -15,11 +16,13 @@
         📝 Blog
       </button>
       <button
+        type="button"
         (click)="switchTab('contacts')"
         class="tab-btn"
         [class.active]="activeTab === 'contacts'"
       >
-        💬 Mensajes <span *ngIf="getUnreadCount() > 0" class="badge">{{ getUnreadCount() }}</span>
+        💬 Mensajes
+        <span *ngIf="getUnreadCount() > 0" class="badge">{{ getUnreadCount() }}</span>
       </button>
     </div>
 

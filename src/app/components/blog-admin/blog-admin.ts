@@ -46,6 +46,7 @@ export class BlogAdminComponent implements OnInit {
 
   ngOnInit() {
     this.loadPosts();
+    this.loadContacts();
   }
 
   // ===== POSTS =====
