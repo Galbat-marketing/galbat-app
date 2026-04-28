@@ -85,6 +85,7 @@ export class App implements OnInit {
   private updateRouteState(url: string) {
     // Detectar si es página home (sin considerar el fragment ni los query params)
     const path = url.split('?')[0].split('#')[0];
+    console.log('path', path);
     this.isHomePage = path === '/';
 
     // Detectar si es ruta admin
